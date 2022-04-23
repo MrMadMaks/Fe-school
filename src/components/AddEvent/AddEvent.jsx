@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams, } from "react-router-dom";
 import moment from "moment";
-import { useState } from "react";
 
 const AddEvent = ({ events }) => {
 
