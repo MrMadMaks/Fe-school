@@ -43,28 +43,6 @@ const AddEvent = ({ events }) => {
     }
   }
 
-  //const [item, setItem] = useState({
-  //  'theme': '',
-  //  'comment': '',
-  //  'date': '',
-  //})
-
-  //const handleSubmit = (e) => {
-  //  e.preventDefault();
-  //  console.log(item)
-  //}
-
-  //const handleFieldChange = (e) => {
-
-  //const card = events.filter(card => card._id === id)[0]
-  //const formatDate = moment(card.date).format("YYYY-MM-DDThh:mm")
-  //  setItem({ [e.target.name]: e.targer.value })
-
-  //}
-
-
-
-
   return (
     <section className="board">
       <form className="board__form" >
@@ -75,7 +53,6 @@ const AddEvent = ({ events }) => {
             type="text"
             className="board__input board__input--theme"
             name="theme"
-            //onChange={handleFieldChange}
             required>{renderTheme()}</textarea>
         </fieldset>
         <fieldset className="board__field board__field--comment">
@@ -85,7 +62,6 @@ const AddEvent = ({ events }) => {
             className="board__input board__input--comment"
             name="comment"
             required
-          //onChange={handleFieldChange}
           >{renderComment()}</textarea>
         </fieldset>
         <fieldset className="board__field board__field--date">
@@ -95,7 +71,6 @@ const AddEvent = ({ events }) => {
             className="board__input board__input--date"
             name="date"
             value={renderDate()}
-          //onChange={handleFieldChange}
           />
         </fieldset>
         <div className="btns">
