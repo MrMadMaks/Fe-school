@@ -3,14 +3,12 @@ import AddEvent from "../../components/AddEvent/AddEvent";
 import Filter from "../../components/Filter/Filter";
 import { AppRoute } from "../../const";
 
-const Form = () => {
-
-
+const Form = ({ events }) => {
 
   return (
     <>
       <Filter mode={AppRoute.EVENT} />
-      <AddEvent />
+      <AddEvent events={events} />
     </>
   )
 }

@@ -1,10 +1,9 @@
 import React from "react";
-import { AppRoute } from "../../const";
 import Card from "../Card/Card";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import Sort from "../Sort/Sort";
 
-const Board = ({ mode }) => {
+const Board = ({ mode, events }) => {
 
   const showSort = () => {
     if (mode === '/') {
@@ -12,19 +11,17 @@ const Board = ({ mode }) => {
     }
   }
 
-  const showLoadMoreBtn = () => {
-    if (mode === '/' || mode === '/archive') {
-      return <LoadMoreBtn />
-    }
+  const renderCards = () => {
+    return events.map(event => <Card {...event} key={event._id} />)
   }
 
   return (
     <section className="board">
       {showSort()}
       <div className="board__events">
-        <Card />
+        {renderCards()}
       </div>
-      {showLoadMoreBtn()}
+      <LoadMoreBtn />
     </section>
   )
 }

@@ -1,6 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
-import { AppRoute } from "../../const";
+import { Link, } from "react-router-dom";
 
 const Filter = ({ mode }) => {
 
