@@ -1,9 +1,52 @@
 import React from "react";
 import { useParams, } from "react-router-dom";
 import moment from "moment";
+import { events } from '../../store/index';
+import { useState } from "react";
 
-const AddEvent = ({ events }) => {
+const AddEvent = () => {
 
+
+  const sendData = async (url, data) => {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: data,
+    })
+
+    if (!response.ok) {
+      throw new Error(`Ошибка по адресу ${url}, статус ошибки ${response}`);
+    }
+
+    return await response.json
+  }
+
+  const sendCard = () => {
+    const cardForm = document.querySelector('.board__form');
+    cardForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(cardForm);
+      sendData('https://fe-school-api.herokuapp.com/api/events/', formData)
+        .then(() => {
+          cardForm.reset()
+        })
+    })
+  }
+
+
+
+  const [inputValue, setInputValue] = useState({
+    theme: '',
+    comment: '',
+    date: '',
+  })
+
+  const handleFieldChange = (e) => {
+    setInputValue({ ...inputValue, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
 
   const { id } = useParams();
 
@@ -45,7 +88,7 @@ const AddEvent = ({ events }) => {
 
   return (
     <section className="board">
-      <form className="board__form" >
+      <form className="board__form" onSubmit={handleSubmit} >
         <h2 className="board__title">{renderTitle()}</h2>
         <fieldset className="board__field board__field--theme">
           <label htmlFor="theme" className="board__label board__label--theme">Тема:</label>
@@ -53,6 +96,8 @@ const AddEvent = ({ events }) => {
             type="text"
             className="board__input board__input--theme"
             name="theme"
+            value={inputValue.theme}
+            onChange={handleFieldChange}
             required>{renderTheme()}</textarea>
         </fieldset>
         <fieldset className="board__field board__field--comment">
@@ -62,6 +107,8 @@ const AddEvent = ({ events }) => {
             className="board__input board__input--comment"
             name="comment"
             required
+            value={inputValue.comment}
+            onChange={handleFieldChange}
           >{renderComment()}</textarea>
         </fieldset>
         <fieldset className="board__field board__field--date">
@@ -70,16 +117,17 @@ const AddEvent = ({ events }) => {
             type="datetime-local"
             className="board__input board__input--date"
             name="date"
-            value={renderDate()}
+            defaultValue={renderDate}
+            value={inputValue.date}
+            onChange={handleFieldChange}
           />
         </fieldset>
         <div className="btns">
-          <button type="submit" className="btn-submit">{renderBtn()}</button>
+          <button type="submit" className="btn-submit" onClick={sendCard} >{renderBtn()}</button>
           <button type="reset" className="btn-reset">Очистить</button>
         </div>
       </form>
     </section>
-
   )
 }
 
