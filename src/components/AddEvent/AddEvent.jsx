@@ -32,34 +32,6 @@ const AddEvent = ({ events }) => {
     return id ? <button type="submit" className="btn-submit">Редактировать</button> : <button type="submit" className="btn-submit">Добавить</button>;
   }
 
-  //function renderTheme() {
-  //  if (id) {
-  //    const card = events.filter(card => card._id === id)[0]
-  //    return card.theme
-  //  } else {
-  //    return ''
-  //  }
-  //}
-
-  //function renderComment() {
-  //  if (id) {
-  //    const card = events.filter(card => card._id === id)[0]
-  //    return card.comment
-  //  } else {
-  //    return ''
-  //  }
-  //}
-
-  //function renderDate() {
-  //  if (id) {
-  //    const card = events.filter(card => card._id === id)[0]
-  //    const formatDate = moment(card.date).format("YYYY-MM-DDThh:mm")
-  //    return formatDate
-  //  } else {
-  //    return ''
-  //  }
-  //}
-
   return (
     <section className="board">
       <form className="board__form" onSubmit={handleSubmit}>
