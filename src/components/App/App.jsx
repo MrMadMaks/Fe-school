@@ -6,7 +6,7 @@ import Form from "../../pages/Form/Form"
 import Header from "../Header/Header";
 import Page404 from "../Page404/Page404";
 import { observer } from "mobx-react-lite";
-import { events } from "../store/index.js";
+import { events } from "../../store/index.js";
 
 const { data } = events;
 

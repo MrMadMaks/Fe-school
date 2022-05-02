@@ -1,5 +1,5 @@
 import { makeAutoObservable, onBecomeObserved } from 'mobx';
-import { getEvents } from '../../api';
+import { getEvents } from '../api';
 
 class EventStore {
   _id;
