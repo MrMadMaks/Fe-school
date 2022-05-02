@@ -2,8 +2,9 @@ import React from "react";
 import AddEvent from "../../components/AddEvent/AddEvent";
 import Filter from "../../components/Filter/Filter";
 import { AppRoute } from "../../const";
+import { observer } from "mobx-react-lite";
 
-const Form = ({ events }) => {
+const Form = observer(({ events }) => {
 
   return (
     <>
@@ -11,6 +12,6 @@ const Form = ({ events }) => {
       <AddEvent events={events} />
     </>
   )
-}
+})
 
 export default Form;

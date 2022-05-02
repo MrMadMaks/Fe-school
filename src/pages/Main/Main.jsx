@@ -1,8 +1,9 @@
 import React from "react";
 import Filter from "../../components/Filter/Filter";
 import Board from "../../components/Board/Board";
+import { observer } from "mobx-react-lite";
 
-const Main = ({ events }) => {
+const Main = observer(({ events }) => {
 
   const main = document.location.pathname;
 
@@ -12,6 +13,6 @@ const Main = ({ events }) => {
       <Board mode={main} events={events} />
     </>
   )
-}
+})
 
 export default Main;

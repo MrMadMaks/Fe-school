@@ -20,7 +20,6 @@ const AddEvent = ({ events }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputValue)
   }
 
 
@@ -35,7 +34,7 @@ const AddEvent = ({ events }) => {
   return (
     <section className="board">
       <form className="board__form" onSubmit={handleSubmit}>
-        <h2 className="board__title">{renderTitle()}</h2>
+        {renderTitle()}
         <fieldset className="board__field board__field--theme">
           <label htmlFor="theme" className="board__label board__label--theme">Тема:</label>
           <textarea
@@ -69,7 +68,7 @@ const AddEvent = ({ events }) => {
           />
         </fieldset>
         <div className="btns">
-          <button type="submit" className="btn-submit">{renderBtn()}</button>
+          {renderBtn()}
           <button type="reset" className="btn-reset">Очистить</button>
         </div>
       </form>
