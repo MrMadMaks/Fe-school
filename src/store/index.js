@@ -31,7 +31,6 @@ class EventsStore {
       autoBind: true,
       archiveData: computed,
       notArchiveData: computed,
-      dataList: computed
     });
 
     onBecomeObserved(this, 'data', this.fetch);

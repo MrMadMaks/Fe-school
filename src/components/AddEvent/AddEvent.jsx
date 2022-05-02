@@ -5,39 +5,39 @@ import { events } from '../../store/index';
 import { useState } from "react";
 
 const AddEvent = () => {
-
-
-  const sendData = async (url, data) => {
-    const response = await fetch(url, {
-      method: 'POST',
-      body: data,
-    })
-
-    if (!response.ok) {
-      throw new Error(`Ошибка по адресу ${url}, статус ошибки ${response}`);
-    }
-
-    return await response.json
-  }
-
-  const sendCard = () => {
-    const cardForm = document.querySelector('.board__form');
-    cardForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const formData = new FormData(cardForm);
-      sendData('https://fe-school-api.herokuapp.com/api/events/', formData)
-        .then(() => {
-          cardForm.reset()
-        })
-    })
-  }
-
-
+  const { id } = useParams();
 
   const [inputValue, setInputValue] = useState({
     theme: '',
     comment: '',
     date: '',
+
+    renderTheme() {
+      if (id) {
+        const card = events.filter(card => card._id === id)[0]
+        return card.theme
+      } else {
+        return ''
+      }
+    },
+    renderComment() {
+      if (id) {
+        const card = events.filter(card => card._id === id)[0]
+        return card.comment
+      } else {
+        return ''
+      }
+    },
+
+    renderDate() {
+      if (id) {
+        const card = events.filter(card => card._id === id)[0]
+        const formatDate = moment(card.date).format("YYYY-MM-DDThh:mm")
+        return formatDate
+      } else {
+        return ''
+      }
+    }
   })
 
   const handleFieldChange = (e) => {
@@ -48,43 +48,43 @@ const AddEvent = () => {
     e.preventDefault();
   }
 
-  const { id } = useParams();
+
 
   function renderTitle() {
-    return id ? <span>Редактирование события</span> : <span>Добавление события</span>;
+    return id ? <>Редактирование события</> : <>Добавление события</>;
   }
 
   function renderBtn() {
-    return id ? <span>Редактировать</span> : <span>Добавить</span>;
+    return id ? <>Редактировать</> : <>Добавить</>;
   }
 
-  function renderTheme() {
-    if (id) {
-      const card = events.filter(card => card._id === id)[0]
-      return card.theme
-    } else {
-      return ''
-    }
-  }
+  //function renderTheme() {
+  //  if (id) {
+  //    const card = events.filter(card => card._id === id)[0]
+  //    return card.theme
+  //  } else {
+  //    return ''
+  //  }
+  //}
 
-  function renderComment() {
-    if (id) {
-      const card = events.filter(card => card._id === id)[0]
-      return card.comment
-    } else {
-      return ''
-    }
-  }
+  //function renderComment() {
+  //  if (id) {
+  //    const card = events.filter(card => card._id === id)[0]
+  //    return card.comment
+  //  } else {
+  //    return ''
+  //  }
+  //}
 
-  function renderDate() {
-    if (id) {
-      const card = events.filter(card => card._id === id)[0]
-      const formatDate = moment(card.date).format("YYYY-MM-DDThh:mm")
-      return formatDate
-    } else {
-      return ''
-    }
-  }
+  //function renderDate() {
+  //  if (id) {
+  //    const card = events.filter(card => card._id === id)[0]
+  //    const formatDate = moment(card.date).format("YYYY-MM-DDThh:mm")
+  //    return formatDate
+  //  } else {
+  //    return ''
+  //  }
+  //}
 
   return (
     <section className="board">
@@ -98,7 +98,7 @@ const AddEvent = () => {
             name="theme"
             value={inputValue.theme}
             onChange={handleFieldChange}
-            required>{renderTheme()}</textarea>
+            required></textarea>
         </fieldset>
         <fieldset className="board__field board__field--comment">
           <label htmlFor="comment" className="board__label board__label--comment">Комментарий:</label>
@@ -109,7 +109,7 @@ const AddEvent = () => {
             required
             value={inputValue.comment}
             onChange={handleFieldChange}
-          >{renderComment()}</textarea>
+          ></textarea>
         </fieldset>
         <fieldset className="board__field board__field--date">
           <label htmlFor="date" className="board__label board__label--date">Дата:</label>
@@ -117,13 +117,12 @@ const AddEvent = () => {
             type="datetime-local"
             className="board__input board__input--date"
             name="date"
-            defaultValue={renderDate}
             value={inputValue.date}
             onChange={handleFieldChange}
           />
         </fieldset>
         <div className="btns">
-          <button type="submit" className="btn-submit" onClick={sendCard} >{renderBtn()}</button>
+          <button type="submit" className="btn-submit">{renderBtn()}</button>
           <button type="reset" className="btn-reset">Очистить</button>
         </div>
       </form>

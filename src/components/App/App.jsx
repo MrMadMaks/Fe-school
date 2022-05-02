@@ -5,9 +5,9 @@ import Main from "../../pages/Main/Main";
 import Form from "../../pages/Form/Form"
 import Header from "../Header/Header";
 import Page404 from "../Page404/Page404";
-//import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react-lite";
 
-const App = () => {
+const App = observer(() => {
 
   return (
 
@@ -23,7 +23,7 @@ const App = () => {
       </Route>
     </Routes >
   );
-}
+})
 
 function Layout() {
   return (

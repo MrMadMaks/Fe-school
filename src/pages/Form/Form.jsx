@@ -7,12 +7,10 @@ import { observer } from 'mobx-react-lite';
 
 const Form = observer(() => {
 
-  const { dataList } = events;
-
   return (
     <>
       <Filter mode={AppRoute.EVENT} />
-      <AddEvent events={dataList} />
+      <AddEvent />
     </>
   )
 })
