@@ -22,13 +22,23 @@ const AddEvent = ({ events }) => {
     e.preventDefault();
   }
 
+  const handleToAdd = (e) => {
+    e.preventDefault();
+    events.addEvent({ ...inputValue })
+  }
+
+  const handleToEdit = (e) => {
+    e.preventDefault();
+    events.editEvent({ ...inputValue })
+  }
+
 
   function renderTitle() {
     return id ? <h2 className="board__title">Редактировать</h2> : <h2 className="board__title">Добавить</h2>;
   }
 
   function renderBtn() {
-    return id ? <button type="submit" className="btn-submit">Редактировать</button> : <button type="submit" className="btn-submit">Добавить</button>;
+    return id ? <button type="submit" className="btn-submit" onClick={handleToEdit}>Редактировать</button> : <button type="submit" className="btn-submit" onClick={handleToAdd}>Добавить</button>;
   }
 
   return (

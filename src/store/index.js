@@ -1,5 +1,5 @@
-import { makeAutoObservable, onBecomeObserved } from 'mobx';
-import { getEvents } from '../api';
+import { computed, makeAutoObservable, onBecomeObserved } from 'mobx';
+import { getEvents, addEvent, editEvent, deleteEvent } from '../api';
 
 class EventStore {
   _id;
@@ -10,7 +10,6 @@ class EventStore {
   favorite = false;
 
   constructor({ _id, theme, comment, date, archive, favorite }) {
-
     makeAutoObservable(this, {}, {
       autoBind: true
     });
@@ -26,17 +25,43 @@ class EventStore {
 
 class EventsStore {
   data = [];
+
   constructor() {
     makeAutoObservable(this, {}, {
-      autoBind: true
+      autoBind: true,
+      archiveData: computed,
+      notArchiveData: computed,
     });
 
     onBecomeObserved(this, 'data', this.fetch);
   }
 
+  get notArchiveData() {
+    return this.data.map(event => new EventStore(event)).filter(x => !x.archive)
+  }
+
+  get archiveData() {
+    return this.data.map(event => new EventStore(event)).filter(x => x.archive)
+  }
+
   *fetch() {
     const response = yield getEvents();
     this.data = response.map(event => new EventStore(event));
+  }
+
+  *addEvent(data) {
+    yield addEvent(data)
+    yield this.fetch();
+  }
+
+  *editEvent(data) {
+    yield editEvent(data)
+    yield this.fetch();
+  }
+
+  *deleteEvent(id) {
+    yield deleteEvent(id)
+    yield this.fetch();
   }
 }
 

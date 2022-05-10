@@ -1,12 +1,42 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { events } from "../../store";
 import moment from "moment";
 import "moment/locale/ru";
 import "./Card.css"
 
-const Card = ({ _id, theme, comment, date, favorite }) => {
+const Card = ({ _id, theme, comment, date, favorite, archive }) => {
 
   const formatDate = moment(date).format('DD MMMM')
+
+  const handleToArchive = (e) => {
+    e.preventDefault();
+    events.editEvent({
+      id: _id,
+      theme,
+      comment,
+      date,
+      favorite,
+      archive: !archive,
+    })
+  }
+
+  const handleToFavorite = (e) => {
+    e.preventDefault();
+    events.editEvent({
+      id: _id,
+      theme,
+      comment,
+      date,
+      favorite: !favorite,
+      archive,
+    })
+  }
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    events.deleteEvent(_id)
+  }
 
   return (
     <article className="card">
@@ -18,18 +48,18 @@ const Card = ({ _id, theme, comment, date, favorite }) => {
                 Редактировать
               </button>
             </Link>
-            <button type="button" className="card__btn card__btn--archive">
+            <button type="button" className="card__btn card__btn--archive" onClick={handleToArchive}>
               В архив
             </button>
             <button
               type="button"
-              className={`card__btn card__btn--favorites ${favorite && 'favorite-on'}`}>
+              className={`card__btn card__btn--favorites ${favorite && 'favorite-on'}`} onClick={handleToFavorite} >
               В избранное
             </button>
             <button
               type="button"
               className="card__btn card__btn--remove"
-            >
+              onClick={handleDelete}>
               Удалить
             </button>
           </div>

@@ -3,13 +3,16 @@ import AddEvent from "../../components/AddEvent/AddEvent";
 import Filter from "../../components/Filter/Filter";
 import { AppRoute } from "../../const";
 import { observer } from "mobx-react-lite";
+import { events } from "../../store";
 
-const Form = observer(({ events }) => {
+const Form = observer(() => {
+
+  const { data } = events
 
   return (
     <>
       <Filter mode={AppRoute.EVENT} />
-      <AddEvent events={events} />
+      <AddEvent events={data} />
     </>
   )
 })
